@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Mon May 23 11:26:40 NZST 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0180-ee18-2139-00000e4dbe48 
+on database directory C:\Users\WindForce\Documents\NetBeansProjects\P38_20112145\Assignment_2\PlayerDB with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
+Loaded from file:/C:/Users/WindForce/Documents/NetBeansProjects/P38_20112145/Assignment_2/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_333-b02
+user.dir=C:\Users\WindForce\Documents\NetBeansProjects\P38_20112145\Assignment_2
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
