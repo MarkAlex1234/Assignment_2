@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @author Mark Alexander
+ * ID: 20112145
  */
 package assignment_2.EXAMPLE;
 
@@ -15,10 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author WindForce
- */
 public class View extends JFrame implements Observer {
     private JPanel userPanel = new JPanel();
     private JPanel calcPanel = new JPanel();

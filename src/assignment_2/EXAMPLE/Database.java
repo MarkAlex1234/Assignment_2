@@ -1,3 +1,9 @@
+/**
+ *
+ * @author Mark Alexander
+ * @StudentID: 20112145
+ * 
+ */
 package assignment_2.EXAMPLE;
 
 import java.sql.Connection;
@@ -9,12 +15,6 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Mark Alexander
- * @StudentID: 20112145
- * 
- */
 public class Database {
 
     Connection conn = null;
