@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package assignment_2.EXAMPLE;
-
 /**
  *
  * @author Mark Alexander
  * ID: 20112145
  */
+package assignment_2.EXAMPLE;
+
 public class NewQuiz {
     public static void main(String[] args) {
         View view = new View();
