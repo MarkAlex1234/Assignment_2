@@ -22,12 +22,11 @@ public class View extends JFrame implements Observer {
     private JLabel pWord = new JLabel("Password: ");
     public JTextField unInput = new JTextField(10);
     public JTextField pwInput = new JTextField(10);
-    private JLabel wrongName = new JLabel("Wrong username or passwork!");
+    private JLabel wrongName = new JLabel("Wrong username or password!");
 
     private JLabel firstNumber = new JLabel();
     private JLabel secondNumber = new JLabel();
     private JLabel additionLabel = new JLabel("+");
-    //private JTextField secondNumber = new JTextField(10);
     private JButton nextButton = new JButton("Next");
     private JButton quitButton = new JButton("Quit");
     private JButton loginButton = new JButton("Log in");
