@@ -12,7 +12,6 @@ public class NewQuiz {
         Controller controller = new Controller(view, model);
         model.addObserver(view);
         MathQuiz mQuiz = new MathQuiz();
-        mQuiz.setVisible(true);
     }
     
 }
