@@ -2,7 +2,7 @@
  *
  * @author Mark Alexander
  * @StudentID: 20112145
- * 
+ *
  */
 package assignment_2;
 
@@ -43,15 +43,26 @@ public class Model extends Observable {
         int i = generator.nextInt(100);
         return i;
     }
-    
-    public void quitGame(){
+
+    public void quitGame() {
         this.db.quitGame(this.data.currentScore, this.username);
         this.data.quitFlag = true;
         this.setChanged();
         this.notifyObservers(this.data);
     }
 
-    void checkAnswer(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void checkAnswer(String answer) {
+        try {
+            if (answer.equals(this.ans + "")) {
+                data.currentScore += 10;
+            } else {
+                data.currentScore -= 10;
+            }
+            this.newQuestion();
+            this.setChanged();
+            this.notifyObservers(this.data);
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e);
+        }
     }
 }

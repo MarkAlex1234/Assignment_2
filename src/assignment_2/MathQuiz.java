@@ -218,7 +218,6 @@ public class MathQuiz extends JFrame {
             JLabel scoreLabel = new JLabel("Your score: " + score);
             quitPanel.add(scoreLabel);
             this.getContentPane().removeAll();
-            //calcPanel.setVisible(true);
             this.add(quitPanel);
             this.revalidate();
             this.repaint();

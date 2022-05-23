@@ -11,7 +11,6 @@ public class NewQuiz {
         Model model = new Model();
         Controller controller = new Controller(view, model);
         model.addObserver(view);
-        MathQuiz mQuiz = new MathQuiz();
     }
     
 }
