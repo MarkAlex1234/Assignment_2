@@ -16,8 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class View extends JFrame implements Observer {
+
     private JPanel userPanel = new JPanel();
     private JPanel calcPanel = new JPanel();
+    private JPanel optionPanel = new JPanel();
     private JLabel uName = new JLabel("Username: ");
     private JLabel pWord = new JLabel("Password: ");
     public JTextField unInput = new JTextField(10);
@@ -31,12 +33,17 @@ public class View extends JFrame implements Observer {
     private JButton quitButton = new JButton("Quit");
     private JButton loginButton = new JButton("Log in");
 
-    private JLabel message = new JLabel("Welcome!", JLabel.CENTER);
+    private JButton aButton = new JButton("A");
+    private JButton bButton = new JButton("B");
+    private JButton cButton = new JButton("C");
+    private JButton dButton = new JButton("D");
+
+    private JLabel message = new JLabel("Welcome to: WHO WANTS TO BE A MILLIONARE", JLabel.CENTER);
     public JTextField calcSolution = new JTextField(10);
-    
+
     private boolean started = false;
-    
-    public View(){
+
+    public View() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 200);
         userPanel.add(uName);
@@ -44,65 +51,74 @@ public class View extends JFrame implements Observer {
         userPanel.add(pWord);
         userPanel.add(pwInput);
         userPanel.add(loginButton);
-        this.add(this.message, BorderLayout.SOUTH);
-        this.add(userPanel);
+        this.add(this.message, BorderLayout.CENTER);
+        this.add(userPanel, BorderLayout.PAGE_START);
         this.setVisible(true);
     }
-    
-    public void startQuiz(){
+
+    public void startQuiz() {
+        
+        //Question Panel
         calcPanel.add(firstNumber);
         calcPanel.add(additionLabel);
         calcPanel.add(secondNumber);
         calcPanel.add(calcSolution);
         calcPanel.add(nextButton);
-        calcPanel.add(quitButton);
+        calcPanel.add(quitButton); 
+        
+        //Option Panel
+        optionPanel.add(aButton);
+        optionPanel.add(bButton);
+        optionPanel.add(cButton);
+        optionPanel.add(dButton);
+        
         this.getContentPane().removeAll();
-        calcPanel.setVisible(true);
-        this.add(calcPanel);
+        this.add(calcPanel, BorderLayout.CENTER);
+        this.add(optionPanel, BorderLayout.SOUTH);
         this.revalidate();
         this.repaint();
+        this.setVisible(true);
     }
-    
-    public void setQuestion(int num1, int num2){
+
+    public void setQuestion(int num1, int num2) {
         firstNumber.setText(num1 + "");
         secondNumber.setText(num2 + "=");
         calcSolution.setText("");
         calcPanel.repaint();
     }
-    
-    public void addActionListener(ActionListener listener){
+
+    public void addActionListener(ActionListener listener) {
         this.loginButton.addActionListener(listener);
         this.nextButton.addActionListener(listener);
         this.quitButton.addActionListener(listener);
     }
-    
-    private void quitGame(int score){
-         JPanel quitPanel = new JPanel();
-         JLabel scoreLabel = new JLabel("Your score: " + score);
-         quitPanel.add(scoreLabel);
-         this.getContentPane().removeAll();
-         //calcPanel.setVisible(true);
-         this.add(quitPanel);
-         this.revalidate();
-         this.repaint();
+
+    private void quitGame(int score) {
+        JPanel quitPanel = new JPanel();
+        JLabel scoreLabel = new JLabel("Your score: " + score);
+        quitPanel.add(scoreLabel);
+        this.getContentPane().removeAll();
+        this.add(quitPanel);
+        this.revalidate();
+        this.repaint();
     }
-    
+
     @Override
     public void update(Observable o, Object arg) {
         Data data = (Data) arg;
-        if(!data.loginFlag){
+        if (!data.loginFlag) {
             this.unInput.setText("");
             this.pwInput.setText("");
             this.message.setText("Invalid username and/or password");
-        } else if (!this.started){
+        } else if (!this.started) {
             this.startQuiz();
             this.started = true;
             this.setQuestion(data.num1, data.num2);
-        } else if (data.loginFlag){
+        } else if (data.loginFlag) {
             this.quitGame(data.currentScore);
         } else {
             this.setQuestion(data.num1, data.num2);
         }
     }
-    
+
 }
