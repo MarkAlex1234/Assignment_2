@@ -120,6 +120,7 @@ public class View extends JFrame implements Observer {
             this.quitGame(data.currentScore);
         } else {
             this.setQuestion(data.num1, data.num2);
+            //test
         }
     }
 }
