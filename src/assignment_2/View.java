@@ -5,11 +5,9 @@
  */
 package assignment_2;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,72 +16,33 @@ import javax.swing.JTextField;
 public class View extends JFrame implements Observer {
 
     public LoginPanel loginPanel = new LoginPanel();
+    public GamePanel gamePanel = new GamePanel();
     private JPanel calcPanel = new JPanel();
-    private JPanel optionPanel = new JPanel();
-
-    public JTextField unInput = new JTextField(10);
-    public JTextField pwInput = new JTextField(10);
-
-    private JLabel firstNumber = new JLabel();
-    private JLabel secondNumber = new JLabel();
-    private JLabel additionLabel = new JLabel("+");
-
-    private JButton nextButton = new JButton("Next");
-    private JButton quitButton = new JButton("Quit");
-    private JButton mainMenuButton = new JButton("Main Menu");
-
-    private JButton aButton = new JButton("A");
-    private JButton bButton = new JButton("B");
-    private JButton cButton = new JButton("C");
-    private JButton dButton = new JButton("D");
 
     public JTextField calcSolution = new JTextField(10);
 
     public JFrame loginFrame = new JFrame("Game - Login");
-
-    private boolean started = false;
+    public JFrame gameFrame = new JFrame("Game - Play");
 
     public View() {
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        loginFrame.setSize(400,300);
+        loginFrame.setSize(400, 300);
         loginFrame.setResizable(false);
         loginFrame.add(loginPanel);
         loginFrame.setVisible(true);
     }
 
     public void startQuiz() {
-
-        loginFrame.setVisible(false);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(400, 200);
-        //Question Panel
-        calcPanel.add(firstNumber);
-        calcPanel.add(additionLabel);
-        calcPanel.add(secondNumber);
-        calcPanel.add(calcSolution);
-        calcPanel.add(nextButton);
-        calcPanel.add(quitButton);
-        calcPanel.add(mainMenuButton);
-
-        //Option Panel
-        optionPanel.add(aButton);
-        optionPanel.add(bButton);
-        optionPanel.add(cButton);
-        optionPanel.add(dButton);
-
-        this.getContentPane().removeAll();
-        this.add(calcPanel, BorderLayout.CENTER);
-        this.add(optionPanel, BorderLayout.SOUTH);
-        //this.revalidate();
-        this.repaint();
-        this.setVisible(true);
+        gameFrame.setResizable(false);
+        gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameFrame.setSize(400, 350);
+        gameFrame.add(gamePanel);
+        gameFrame.setVisible(true);
     }
 
-    public void setQuestion(int num1, int num2) {
-        firstNumber.setText(num1 + "");
-        secondNumber.setText(num2 + "=");
-        calcSolution.setText("");
+    public void setQuestion(String q, String a) {
+        gamePanel.questionTextField.setText(q);
+        gamePanel.answer1TextField.setText(a);
         calcPanel.repaint();
     }
 
@@ -91,22 +50,17 @@ public class View extends JFrame implements Observer {
         //Login Panel Buttons
         this.loginPanel.loginButton.addActionListener(listener);
         this.loginPanel.exitButton.addActionListener(listener);
-        
+
         //Help Menu Buttons
-        
-        
-        //Gameover Buttons
-        
-        
+        //Game Buttons
+        this.gamePanel.aButton.addActionListener(listener);
+        this.gamePanel.bButton.addActionListener(listener);
+        this.gamePanel.cButton.addActionListener(listener);
+        this.gamePanel.dButton.addActionListener(listener);
+        this.gamePanel.saveQuitButton.addActionListener(listener);
+        this.gamePanel.logoutButton.addActionListener(listener);
+
         //Quit Buttons
-        
-        this.nextButton.addActionListener(listener);
-        this.quitButton.addActionListener(listener);
-        this.mainMenuButton.addActionListener(listener);
-        this.aButton.addActionListener(listener);
-        this.bButton.addActionListener(listener);
-        this.cButton.addActionListener(listener);
-        this.dButton.addActionListener(listener);
     }
 
     private void quitGame(int score) {
@@ -126,14 +80,17 @@ public class View extends JFrame implements Observer {
             this.loginPanel.unInput.setText("");
             this.loginPanel.pwInput.setText("");
             this.loginPanel.messageLabel.setText("Invalid username and/or password");
-        } else if (!this.started) {
+        } else if (!data.started) {
+            this.loginFrame.setVisible(false);
             this.startQuiz();
-            this.started = true;
-            this.setQuestion(data.num1, data.num2);
+            data.started = true;
+            this.setQuestion(data.question, data.answer);
         } else if (data.quitFlag) {
+            this.loginFrame.dispose();
+            this.gameFrame.dispose();
             this.quitGame(data.currentScore);
         } else {
-            this.setQuestion(data.num1, data.num2);
+            this.setQuestion(data.question, data.answer);
         }
     }
 }

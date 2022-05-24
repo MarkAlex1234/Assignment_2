@@ -13,6 +13,7 @@ public class Model extends Observable {
 
     public Database db;
     public Data data;
+    private QuestionManger qm;
     public int ans = 0;
     public String username;
 
@@ -33,9 +34,9 @@ public class Model extends Observable {
     }
 
     public void newQuestion() {
-        this.data.num1 = getNumber();
-        this.data.num2 = getNumber();
-        this.ans = this.data.num1 + this.data.num2;
+        qm = new QuestionManger();
+        this.data.question = qm.aQuestion;
+        this.data.answer = qm.answer;
     }
 
     public int getNumber() {
@@ -51,7 +52,12 @@ public class Model extends Observable {
         this.notifyObservers(this.data);
     }
 
-    void checkAnswer(String answer) {
+    public void quitGameNOSaving() {
+        System.out.println(">EXITED SUCCESSFULLY");
+        System.exit(0);
+    }
+
+    public void checkAnswer(String answer) {
         try {
             if (answer.equals(this.ans + "")) {
                 data.currentScore += 10;

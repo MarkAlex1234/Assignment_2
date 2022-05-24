@@ -2,7 +2,7 @@
  *
  * @author Mark Alexander
  * @StudentID: 20112145
- * 
+ *
  */
 package assignment_2;
 
@@ -58,26 +58,33 @@ public class Database {
                 rsDBMeta.close();
             }
         } catch (SQLException ex) {
-           System.err.println("ERROR: " + ex);
+            System.err.println("ERROR: " + ex);
         }
         return flag;
     }
 
     public Data checkName(String username, String password) {
         Data data = new Data();
+
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT userid, password, score FROM UserInfo "
                     + "WHERE userid = '" + username + "'");
-            if (rs.next()) {
+            if (username.isEmpty()) {
+                System.out.println("> ERROR: USERNAME CANNOT BE EMPTY");
+                data.loginFlag = false;
+                return data;
+            }
+            else if (rs.next()) {
                 String pass = rs.getString("password");
                 System.out.println("> FOUND user with username: " + username + " & password: " + pass);
                 if (password.compareTo(pass) == 0) {
                     System.out.println("> LOGIN SUCCESSFUL");
                     data.currentScore = rs.getInt("score");
                     data.loginFlag = true;
+                    data.started = false;
                 } else {
-                    System.out.println("> ERROR: Incorrect password for user '" + username +"'");
+                    System.out.println("> ERROR: Incorrect password for user '" + username + "'");
                     data.loginFlag = false;
                 }
             } else {

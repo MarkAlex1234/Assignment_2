@@ -23,7 +23,7 @@ public class Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        System.out.println("BUTTONCLICKED: " + command);
+        System.out.println("> BUTTONCLICKED: " + command);
         switch (command) {
             case "Login":
                 String username = this.view.loginPanel.unInput.getText();
@@ -31,25 +31,26 @@ public class Controller implements ActionListener {
                 this.model.checkName(username, password);
                 break;
             case "EXIT":
-                this.view.loginFrame.dispose();
+                this.model.quitGameNOSaving();
                 break;
-            case "Next":
-                this.model.checkAnswer(this.view.calcSolution.getText());
-                break;
-            case "Quit":
+            case "Save & Quit":
                 this.model.quitGame();
+                break;
+            case "Logout":
+                this.view.loginFrame.setVisible(true);
+                this.view.gameFrame.setVisible(false);
                 break;
             case "A":
-                this.model.quitGame();
+                //this.model.quitGame();
                 break;
             case "B":
-                this.model.quitGame();
+               // this.model.quitGame();
                 break;
             case "C":
-                this.model.quitGame();
+               // this.model.quitGame();
                 break;
             case "D":
-                this.model.quitGame();
+               // this.model.quitGame();
                 break;
             default:
                 break;
