@@ -31,11 +31,10 @@ public class Database {
             if (!checkTableExisting(tableName)) {
                 statement.executeUpdate("CREATE TABLE " + tableName + " (userid VARCHAR(12), password VARCHAR(12), score INT)");
             }
-            //statement.executeUpdate("INSERT INTO " + tableName + " VALUES('Fiction',0),('Non-fiction',10),('Textbook',20)");
             statement.close();
 
-        } catch (Throwable e) {
-            System.out.println("error");
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e);
 
         }
     }
@@ -48,7 +47,6 @@ public class Database {
             String[] types = {"TABLE"};
             DatabaseMetaData dbmd = conn.getMetaData();
             ResultSet rsDBMeta = dbmd.getTables(null, null, null, null);//types);
-            //Statement dropStatement=null;
             while (rsDBMeta.next()) {
                 String tableName = rsDBMeta.getString("TABLE_NAME");
                 if (tableName.compareToIgnoreCase(newTableName) == 0) {
@@ -60,6 +58,7 @@ public class Database {
                 rsDBMeta.close();
             }
         } catch (SQLException ex) {
+           System.err.println("ERROR: " + ex);
         }
         return flag;
     }
@@ -72,16 +71,17 @@ public class Database {
                     + "WHERE userid = '" + username + "'");
             if (rs.next()) {
                 String pass = rs.getString("password");
-                System.out.println("***" + pass);
-                System.out.println("found user");
+                System.out.println("> FOUND user with username: " + username + " & password: " + pass);
                 if (password.compareTo(pass) == 0) {
+                    System.out.println("> LOGIN SUCCESSFUL");
                     data.currentScore = rs.getInt("score");
                     data.loginFlag = true;
                 } else {
+                    System.out.println("> ERROR: Incorrect password for user '" + username +"'");
                     data.loginFlag = false;
                 }
             } else {
-                System.out.println("no such user");
+                System.out.println("> No such user, CREATING user with name: " + username + " AND password: " + password);
                 statement.executeUpdate("INSERT INTO UserInfo "
                         + "VALUES('" + username + "', '" + password + "', 0)");
                 data.currentScore = 0;
@@ -90,7 +90,7 @@ public class Database {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(MathQuiz.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
         }
         return data;
 
@@ -104,7 +104,7 @@ public class Database {
             statement.executeUpdate("UPDATE UserInfo SET score=" + score + " WHERE userid='" + username + "'");
 
         } catch (SQLException ex) {
-            Logger.getLogger(MathQuiz.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

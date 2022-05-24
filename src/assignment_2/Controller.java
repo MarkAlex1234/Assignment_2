@@ -24,16 +24,29 @@ public class Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
+        System.out.println("BUTTONCLICKED: " + command);
         switch(command){
-            case "Log in":
-                String username = this.view.unInput.getText();
-                String password = this.view.pwInput.getText();
+            case "Login":
+                String username = this.view.loginPanel.unInput.getText();
+                String password = this.view.loginPanel.pwInput.getText();
                 this.model.checkName(username, password);
                 break;
             case "Next":
                 this.model.checkAnswer(this.view.calcSolution.getText());
                 break;
             case "Quit":
+                this.model.quitGame();
+                break;
+            case "A":
+                this.model.quitGame();
+                break;
+            case "B":
+                this.model.quitGame();
+                break;
+            case "C":
+                this.model.quitGame();
+                break;
+            case "D":
                 this.model.quitGame();
                 break;
             default:

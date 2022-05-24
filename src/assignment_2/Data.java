@@ -13,3 +13,5 @@ public class Data {
     int num1 =0;
     int num2 =0;
 }
+
+//TODO DATABASE READING AND SETTING

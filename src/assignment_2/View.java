@@ -17,24 +17,25 @@ import javax.swing.JTextField;
 
 public class View extends JFrame implements Observer {
 
-    private JPanel userPanel = new JPanel();
+    public LoginPanel loginPanel = new LoginPanel();
     private JPanel calcPanel = new JPanel();
     private JPanel optionPanel = new JPanel();
     private JLabel uName = new JLabel("Username: ");
     private JLabel pWord = new JLabel("Password: ");
-   
+
     public JTextField unInput = new JTextField(10);
     public JTextField pwInput = new JTextField(10);
-    
+
     private JLabel wrongName = new JLabel("Wrong username or password!");
     private JLabel firstNumber = new JLabel();
     private JLabel secondNumber = new JLabel();
     private JLabel additionLabel = new JLabel("+");
-    
+
     private JButton nextButton = new JButton("Next");
     private JButton quitButton = new JButton("Quit");
     private JButton loginButton = new JButton("Log in");
-    
+    private JButton mainMenuButton = new JButton("Main Menu");
+
     private JButton aButton = new JButton("A");
     private JButton bButton = new JButton("B");
     private JButton cButton = new JButton("C");
@@ -43,41 +44,42 @@ public class View extends JFrame implements Observer {
     private JLabel message = new JLabel("Welcome to: WHO WANTS TO BE A MILLIONARE", JLabel.CENTER);
     public JTextField calcSolution = new JTextField(10);
 
+    private JFrame frame = new JFrame("Game");
+
     private boolean started = false;
 
     public View() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600, 200);
-        userPanel.add(uName);
-        userPanel.add(unInput);
-        userPanel.add(pWord);
-        userPanel.add(pwInput);
-        userPanel.add(loginButton);
-        this.add(this.message, BorderLayout.CENTER);
-        this.add(userPanel, BorderLayout.PAGE_START);
-        this.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400,300);
+        frame.add(loginPanel);
+        frame.setVisible(true);
     }
 
     public void startQuiz() {
-        
+
+        frame.setVisible(false);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(400, 200);
         //Question Panel
         calcPanel.add(firstNumber);
         calcPanel.add(additionLabel);
         calcPanel.add(secondNumber);
         calcPanel.add(calcSolution);
         calcPanel.add(nextButton);
-        calcPanel.add(quitButton); 
-        
+        calcPanel.add(quitButton);
+        calcPanel.add(mainMenuButton);
+
         //Option Panel
         optionPanel.add(aButton);
         optionPanel.add(bButton);
         optionPanel.add(cButton);
         optionPanel.add(dButton);
-        
+
         this.getContentPane().removeAll();
         this.add(calcPanel, BorderLayout.CENTER);
         this.add(optionPanel, BorderLayout.SOUTH);
-        this.revalidate();
+        //this.revalidate();
         this.repaint();
         this.setVisible(true);
     }
@@ -90,9 +92,25 @@ public class View extends JFrame implements Observer {
     }
 
     public void addActionListener(ActionListener listener) {
-        this.loginButton.addActionListener(listener);
+        //Login Panel Buttons
+        this.loginPanel.loginButton.addActionListener(listener);
+        this.loginPanel.exitButton.addActionListener(listener);
+        
+        //Help Menu Buttons
+        
+        
+        //Gameover Buttons
+        
+        
+        //Quit Buttons
+        
         this.nextButton.addActionListener(listener);
         this.quitButton.addActionListener(listener);
+        this.mainMenuButton.addActionListener(listener);
+        this.aButton.addActionListener(listener);
+        this.bButton.addActionListener(listener);
+        this.cButton.addActionListener(listener);
+        this.dButton.addActionListener(listener);
     }
 
     private void quitGame(int score) {
@@ -109,9 +127,9 @@ public class View extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
         Data data = (Data) arg;
         if (!data.loginFlag) {
-            this.unInput.setText("");
-            this.pwInput.setText("");
-            this.message.setText("Invalid username and/or password");
+            this.loginPanel.unInput.setText("");
+            this.loginPanel.pwInput.setText("");
+            this.loginPanel.messageLabel.setText("Invalid username and/or password");
         } else if (!this.started) {
             this.startQuiz();
             this.started = true;
