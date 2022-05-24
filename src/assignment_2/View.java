@@ -20,20 +20,16 @@ public class View extends JFrame implements Observer {
     public LoginPanel loginPanel = new LoginPanel();
     private JPanel calcPanel = new JPanel();
     private JPanel optionPanel = new JPanel();
-    private JLabel uName = new JLabel("Username: ");
-    private JLabel pWord = new JLabel("Password: ");
 
     public JTextField unInput = new JTextField(10);
     public JTextField pwInput = new JTextField(10);
 
-    private JLabel wrongName = new JLabel("Wrong username or password!");
     private JLabel firstNumber = new JLabel();
     private JLabel secondNumber = new JLabel();
     private JLabel additionLabel = new JLabel("+");
 
     private JButton nextButton = new JButton("Next");
     private JButton quitButton = new JButton("Quit");
-    private JButton loginButton = new JButton("Log in");
     private JButton mainMenuButton = new JButton("Main Menu");
 
     private JButton aButton = new JButton("A");
@@ -41,23 +37,23 @@ public class View extends JFrame implements Observer {
     private JButton cButton = new JButton("C");
     private JButton dButton = new JButton("D");
 
-    private JLabel message = new JLabel("Welcome to: WHO WANTS TO BE A MILLIONARE", JLabel.CENTER);
     public JTextField calcSolution = new JTextField(10);
 
-    private JFrame frame = new JFrame("Game");
+    public JFrame loginFrame = new JFrame("Game - Login");
 
     private boolean started = false;
 
     public View() {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,300);
-        frame.add(loginPanel);
-        frame.setVisible(true);
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.setSize(400,300);
+        loginFrame.setResizable(false);
+        loginFrame.add(loginPanel);
+        loginFrame.setVisible(true);
     }
 
     public void startQuiz() {
 
-        frame.setVisible(false);
+        loginFrame.setVisible(false);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400, 200);
